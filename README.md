@@ -59,3 +59,6 @@ Contributors
 * Mark Galloway
 * Abram Hindle
 * Cole Mackenzie
+* Helen Aquino
+
+All referenced code within https://github.com/uofa-cmput404/cmput404-slides/tree/master/examples/WebSocketsExamples used in the submission are written by Abram Hindle

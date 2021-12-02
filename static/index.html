@@ -55,7 +55,8 @@ function drawCircle(context,entity) {
         fillStyle = entity["colour"];
         strokeStyle = fillStyle;
         arc(x, y, (entity["radius"])?entity["radius"]:50, 0, 2.0 * Math.PI, false);  
-        stroke();                                
+        stroke();  
+        fill();                          
     }
 }
 
@@ -230,16 +231,20 @@ mouse = (function() {
 
 // Add the application specific mouse listeners!
 //XXX: TODO Make these prettier!
+// rose quartz: #F7CAC9
+// serenity: #B3CEE
+// off white: #FAF9F6
+// cuz ofc i had to pay hommage to seventeen AGAIN :))
 mouse.mousedowners.push(function(x,y,clicked,e) {
-    addEntityWithoutName({'x':x,'y':y,'colour':'blue'});
+    addEntityWithoutName({'x':x,'y':y,'colour':'#FAF9F6'});
 });
 
 mouse.mouseuppers.push(function(x,y,clicked,e) {
-    addEntityWithoutName({'x':x,'y':y,'colour':'red'});
+    addEntityWithoutName({'x':x,'y':y,'colour':'#F7CAC9'});
 });
 
 mouse.mousedraggers.push(function(x,y,clicked,e) {
-    addEntityWithoutName({'x':x,'y':y,'colour':'green',
+    addEntityWithoutName({'x':x,'y':y,'colour':'#B3CEE',
                           'radius':10});
 });
 
@@ -254,6 +259,7 @@ function wsSetup() {
     socket = new WebSocket(url);
     socket.onopen = function() {
         //XXX: TODO What are you going to do here?
+        debug("Websocket Opened")
     };
     socket.onerror = function(msg) {
         debug("WebSocket Error:" + msg.data);
@@ -261,7 +267,10 @@ function wsSetup() {
     socket.onmessage = function(msg) {  
         try {
             debug("WebSocket Recv:" + msg.data);
-            //XXX: TODO What are you going to do here?            
+            //XXX: TODO What are you going to do here?
+            // taken from https://github.com/uofa-cmput404/cmput404-slides/tree/master/examples/WebSocketsExamples/static/chat.html 
+            var data = JSON.parse(msg.data);   
+            AddMessage(message["msg"]);     
         } catch (e) {
             alert("socket on message: " + e);
         }
